@@ -1,6 +1,7 @@
 // import React from 'react';
 import React, { Component } from 'react';
-import ChoosePlayer from "./components/ChoosePlayer"
+import ChoosePlayer from "./components/ChoosePlayer";
+import swal from 'sweetalert';
 import './App.css';
 
 class App extends Component {
@@ -31,32 +32,39 @@ class App extends Component {
        //console.log(winLines[index])
        var board = this.state.board
        if (board[a] && board[a] === board[b] && board[a] === board[c]){
-         console.log(board[a]+"board[a]")
-         console.log(board[a]+"board[b]")
-         console.log(board[a]+"board[c]")
-         alert("you won")
-         this.setState({
-           winner: this.state.player
-         })
+        //  console.log(board[a]+"board[a]")
+        //  console.log(board[a]+"board[b]")
+        //  console.log(board[a]+"board[c]")
+        //  alert("you won");
+        //  console.log("win")
+        //  this.setState({
+        //    winner: this.state.player
+        //  })
+        swal({
+          text: "The winner is "+ this.state.player + " !",
+        });
+          console.log("win")
        }
+        // console.log("win")
      }
 
   }
 
 
 handleClick (index){
+  console.log(index)
   if (this.state.player && !this.state.winner){
     
 //console.log(index )
 const newBoard = this.state.board;
+const newPlayer = this.state.player ==="O"? "X":"O"
 if (newBoard[index] ===null ){
 newBoard[index]=this.state.player;
 // const newPlayer = this.state.player ==="x"? "o":"x"
 this.setState({
   board: newBoard,
   // player:newPlayer
-  player:this.state.player ==="x"? "o":"x"
-  
+  player:newPlayer
 })
 this.checkWinner();
 }
@@ -95,7 +103,7 @@ handleButtonClick = () => {
   const status = this.state.player ? <p>Next player is {this.state.player}</p> :<ChoosePlayer player={(event)=>this.setPlayer(event)}/>
     return (
       <form ref={form => this.form = form}>
-      <div className="container">
+      <div className="container" >
     <h1>Tic Tac Toe Game</h1> 
     {status}
     <div className="board">
